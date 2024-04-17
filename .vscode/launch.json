@@ -16,8 +16,7 @@
         "${workspaceFolder}/out/**/*.js"
       ],
       "debugWebviews": true,
-      "trace": true,
-      "preLaunchTask": "npm: watch"
+      "trace": true
     },
     {
       "name": "Extension Tests",
