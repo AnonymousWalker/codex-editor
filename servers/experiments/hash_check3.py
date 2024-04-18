@@ -21,7 +21,7 @@ def divide_text_into_chunks(text, n):
     chunks.extend([','] * (n - len(chunks)))
     return chunks
 
-def spell_hash(text: str, font_path: str = "servers/experiments/unifont-15.1.04.otf", font_size: int = 100) -> Hash:
+def spell_hash(text: str, font_path: str = r"D:\projects\codex-editor\servers\experiments\unifont-15.1.04.otf", font_size: int = 100) -> Hash:
     """
     Convert each letter in text to an image, extract visual features, and return it as a Hash object.
 

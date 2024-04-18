@@ -2,11 +2,11 @@ import * as vscode from "vscode";
 import { verseRefRegex } from "../../utils/verseRefUtils";
 
 const config = vscode.workspace.getConfiguration("translators-copilot");
-const endpoint = config.get("llmEndpoint"); // NOTE: config.endpoint is reserved so we must have unique name
+const endpoint = "http://localhost:1234/v1"; // config.get("llmEndpoint"); // NOTE: config.endpoint is reserved so we must have unique name
 const apiKey = config.get("api_key");
-const model = config.get("model");
-const temperature = config.get("temperature");
-const maxTokens = config.get("max_tokens");
+const model = "";//config.get("model");
+const temperature = 0.2;//config.get("temperature");
+const maxTokens = 2048;// config.get("max_tokens");
 const maxLength = 4000;
 let shouldProvideCompletion = false;
 export async function provideInlineCompletionItems(

@@ -19,7 +19,7 @@ def filter(text, reference):
 
 
 def get_verse_references_from_file(path):
-    path = 'servers/versedata.txt'
+    path = r'D:\projects\codex-editor\servers\versedata.txt'
     with open(path, 'r') as f:
         return f.readlines()
 
