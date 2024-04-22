@@ -90,9 +90,6 @@ async function startLangServer(context: vscode.ExtensionContext) {
             },
         },
     };
-    pyglsLogger.info(
-        `Debug: serveroptions: ${serverOptions}\n${pythonCommand}`,
-    );
 
     client = new LanguageClient("pygls", serverOptions, getClientOptions());
     const promises = [client.start()];
