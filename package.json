@@ -291,17 +291,6 @@
         "configuration": [
             {
                 "type": "object",
-                "title": "Json Server Configuration",
-                "properties": {
-                    "pygls.jsonServer.exampleConfiguration": {
-                        "scope": "resource",
-                        "type": "string",
-                        "default": "You can override this message"
-                    }
-                }
-            },
-            {
-                "type": "object",
                 "title": "Server Configuration",
                 "properties": {
                     "pygls.server.cwd": {
@@ -492,7 +481,6 @@
     },
     "extensionDependencies": [
         "project-accelerate.shared-state-store",
-        "ms-python.python",
         "project-accelerate.scripture-language-support",
         "project-accelerate.pythoninstaller"
     ]
