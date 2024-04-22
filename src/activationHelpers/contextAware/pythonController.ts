@@ -65,12 +65,12 @@ async function startLangServer(context: vscode.ExtensionContext) {
 
     const config = vscode.workspace.getConfiguration("pygls.server");
     const server_path = "/servers/server.py";
-    const extension_path = context.extensionPath;
+    const extension_path = "D:/projects/codex-editor";
 
     const full_path = vscode.Uri.parse(extension_path + server_path);
     pyglsLogger.info(`full_server_path: '${full_path}'`);
 
-    const pythonCommand = await getPythonCommand(full_path);
+    const pythonCommand = ["D:/python3.11.9/python.exe"];//await getPythonCommand(full_path);
     vscode.window.showInformationMessage("Python command: "+ pythonCommand);
     if (!pythonCommand) {
         clientStarting = false;
@@ -173,7 +173,7 @@ async function getPythonCommand(
         pythonPath = pythonExtension.extensionPath + '/.env/bin/python';
     }
     else {
-        pythonPath = "python311"; 
+        pythonPath = "D:/python3.11.9/python.exe"; 
         vscode.window.showWarningMessage("PythonInstaller extension not found. Falling back to 'python3.11'.");
     }
     const config = vscode.workspace.getConfiguration("pygls.server", resource);

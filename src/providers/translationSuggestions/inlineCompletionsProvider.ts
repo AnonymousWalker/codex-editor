@@ -2,11 +2,11 @@ import * as vscode from "vscode";
 import { verseRefRegex } from "../../utils/verseRefUtils";
 
 const config = vscode.workspace.getConfiguration("translators-copilot");
-const endpoint = config.get("llmEndpoint"); // NOTE: config.endpoint is reserved so we must have unique name
+const endpoint = "http://localhost:1234/v1"; // config.get("llmEndpoint"); // NOTE: config.endpoint is reserved so we must have unique name
 const apiKey = config.get("api_key");
-const model = config.get("model");
-const temperature = config.get("temperature");
-const maxTokens = config.get("max_tokens");
+const model = "";//config.get("model");
+const temperature = 0.2;//config.get("temperature");
+const maxTokens = 2048;// config.get("max_tokens");
 const maxLength = 4000;
 let shouldProvideCompletion = false;
 export async function provideInlineCompletionItems(
@@ -15,7 +15,6 @@ export async function provideInlineCompletionItems(
     context: vscode.InlineCompletionContext,
     token: vscode.CancellationToken
 ): Promise<vscode.InlineCompletionItem[] | undefined> {
-    vscode.window.showInformationMessage("provideInlineCompletionItems called");
     if (!shouldProvideCompletion) {
         return undefined;
     }
@@ -40,7 +39,7 @@ function preprocessDocument(docText: string) {
     const lines = docText.split("\r\n");
     // Apply preprocessing rules to each line except the last
     for (let i = 0; i < lines.length; i++) {
-        if (i > 0 && lines[i - 2].trim() !== "" && isStartWithComment(lines[i])) {
+        if (i > 0 && lines[i - 1].trim() !== "" && isStartWithComment(lines[i])) {
             lines[i] = "\r\n" + lines[i];
         }
     }
@@ -112,14 +111,16 @@ async function getCompletionText(
         stream: boolean;
         stop: string[];
         n: number;
+        frequency_penalty: number;
         model: string | undefined;
     } = {
         prompt: prompt,
-        max_tokens: 10,
+        max_tokens: 15,
         temperature: temperature,
         stream: false,
         stop: stop,
         n: 1,
+        frequency_penalty: -0.1,
         model: undefined,
     };
     if (model && typeof model === 'string') {
@@ -247,4 +248,8 @@ async function getCompletionTextGPT(
 export function triggerInlineCompletion() {
     shouldProvideCompletion = true;
     vscode.commands.executeCommand("editor.action.inlineSuggest.trigger");
+}
+
+export function disableCompletion() {
+    shouldProvideCompletion = false;
 }

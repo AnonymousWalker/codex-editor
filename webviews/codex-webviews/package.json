@@ -5,8 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build:ParallelView": "APP_NAME=ParallelView vite build",
-        "build:SemanticView": "APP_NAME=SemanticView vite build",
+        "build:ParallelView": "cross-env APP_NAME=ParallelView vite build",
+        "build:SemanticView": "cross-env APP_NAME=SemanticView vite build",
         "build:TranslationNotesView": "APP_NAME=TranslationNotesView vite build",
         "build:all": "npm run build:ParallelView && npm run build:TranslationNotesView && npm run build:SemanticView",
         "watch": "nodemon --watch src --ext ts,tsx --exec npm run build:all",

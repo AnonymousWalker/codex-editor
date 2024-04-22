@@ -349,7 +349,7 @@
                     "pygls.server.pythonPath": {
                         "scope": "resource",
                         "type": "string",
-                        "default": "python3",
+                        "default": "python",
                         "description": "The python interpreter to use to run the server.\nBy default, this extension will attempt to use the Python interpreter configured via the Python extension, setting this setting will override this behavior."
                     },
                     "pygls.trace.server": {
@@ -448,6 +448,7 @@
         "@typescript-eslint/eslint-plugin": "^6.7.0",
         "@typescript-eslint/parser": "^6.7.0",
         "@vscode/test-electron": "^2.3.8",
+        "cross-env": "^7.0.3",
         "eslint": "^7.27.0",
         "mocha": "^10.2.0",
         "prettier": "^3.1.1",
