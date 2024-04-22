@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import {
     triggerInlineCompletion,
+    disableCompletion,
     provideInlineCompletionItems,
 } from "../../providers/translationSuggestions/inlineCompletionsProvider";
 
@@ -21,11 +22,22 @@ export async function langugeServerTS (context: vscode.ExtensionContext){
         triggerInlineCompletion,
     );
 
+    // avoid sending request while typing
+    let debounceTimer = setTimeout(() => {}, 0);
+
     vscode.workspace.onDidChangeTextDocument((e) => {
-        const shouldTriggerInlineCompletion = e.contentChanges.length > 0;
-        if (shouldTriggerInlineCompletion) {
-            triggerInlineCompletion();
-        }
+        // Clear previous debounce timer
+        disableCompletion();
+        clearTimeout(debounceTimer);
+
+        // Set new debounce timer
+        debounceTimer = setTimeout(() => {
+            // Handle the event that the user has stopped editing the document
+            const shouldTriggerInlineCompletion = e.contentChanges.length > 0;
+            if (shouldTriggerInlineCompletion) {
+                triggerInlineCompletion();
+            }
+        }, 500);
     });
 
     context.subscriptions.push(commandDisposable);

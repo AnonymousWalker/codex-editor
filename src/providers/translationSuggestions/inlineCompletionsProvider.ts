@@ -15,7 +15,6 @@ export async function provideInlineCompletionItems(
     context: vscode.InlineCompletionContext,
     token: vscode.CancellationToken
 ): Promise<vscode.InlineCompletionItem[] | undefined> {
-    vscode.window.showInformationMessage("provideInlineCompletionItems called");
     if (!shouldProvideCompletion) {
         return undefined;
     }
@@ -112,14 +111,16 @@ async function getCompletionText(
         stream: boolean;
         stop: string[];
         n: number;
+        frequency_penalty: number;
         model: string | undefined;
     } = {
         prompt: prompt,
-        max_tokens: 10,
+        max_tokens: 15,
         temperature: temperature,
         stream: false,
         stop: stop,
         n: 1,
+        frequency_penalty: -0.1,
         model: undefined,
     };
     if (model && typeof model === 'string') {
@@ -247,4 +248,8 @@ async function getCompletionTextGPT(
 export function triggerInlineCompletion() {
     shouldProvideCompletion = true;
     vscode.commands.executeCommand("editor.action.inlineSuggest.trigger");
+}
+
+export function disableCompletion() {
+    shouldProvideCompletion = false;
 }
